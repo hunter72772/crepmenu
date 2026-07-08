@@ -1,1 +1,34 @@
+const params = new URLSearchParams(window.location.search);
 
+const image = params.get("image") || "background";
+
+const preview = document.getElementById("preview");
+
+preview.onload = () => {
+    preview.classList.add("show");
+};
+
+preview.onerror = () => {
+    document.body.innerHTML = `
+        <div style="
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            width:100vw;
+            height:100vh;
+            color:white;
+            font-family:Arial;
+            background:#111;
+            text-align:center;
+        ">
+            <div>
+                <h2>Imagem não encontrada</h2>
+                <br>
+                Procurei por:<br>
+                <b>img/${image}.png</b>
+            </div>
+        </div>
+    `;
+};
+
+preview.src = `img/${image}.png`;
